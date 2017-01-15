@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "sleepbot-to-sleep_as_android", "sleepbot-to-sleep_as_android\sleepbot-to-sleep_as_android.pyproj", "{579A9D8B-C407-4562-A8F9-B314279E6CD2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{579A9D8B-C407-4562-A8F9-B314279E6CD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{579A9D8B-C407-4562-A8F9-B314279E6CD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
