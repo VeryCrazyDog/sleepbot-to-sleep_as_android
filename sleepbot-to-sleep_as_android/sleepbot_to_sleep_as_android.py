@@ -8,6 +8,7 @@ NOTE_PREFIX = "[Import from Sleepbot]"
 
 # Constants
 SLEEPBOT_EXPORT_HEADER = ["Date", "Sleep Time", "Wake Time", "Hours", "Note"]
+SLEEPBOT_TIME_DIFF_THRESHOLD = 0.1
 SLEEP_AS_ANDROID_TIME_FORMAT = '%H:%M'
 SLEEP_AS_ANDROID_DATETIME_FORMAT = '%d. %m. %Y %-H:%M'
 SLEEP_AS_ANDROID_DATETIME_FORMAT = '{dt:%d}. {dt:%m}. {dt:%Y} {dt.hour}:{dt:%M}'
@@ -50,8 +51,12 @@ def parse_sleepbot_row(row):
             day_adj = math.ceil(sleep_hours / 24)
             # Adjust the sleep time
             sleep_time -= timedelta(days = day_adj)
-        # Build the result
-        result = SleepbotExportRow(sleep_time, wake_time, sleep_hours, row[4])
+        # Check the sleep hours is consistent with sleep time and wake time
+        if math.fabs((wake_time - sleep_time).total_seconds() / 3600 - float(sleep_hours)) <= SLEEPBOT_TIME_DIFF_THRESHOLD:
+            # Build the result
+            result = SleepbotExportRow(sleep_time, wake_time, sleep_hours, row[4])
+        else:
+            print('WARN: Skipping Sleepbot data with different between sleep time and wake time not matching with sleep hours', row)
     else:
         print('WARN: Skipping invalid Sleepbot data', row)
     return result
@@ -96,7 +101,8 @@ def write_sleep_as_android_row(csv_writer, row):
 
 def process(csv_writer, row):
     row = parse_sleepbot_row(row)
-    write_sleep_as_android_row(csv_writer, row)
+    if row != None:
+        write_sleep_as_android_row(csv_writer, row)
 
 # Main implementation
 with open(PATH_IN_SLEEPBOT_EXPORT, 'r') as in_file, open(PATH_OUT_SLEEP_AS_ANDROID, 'w', newline = '') as out_file:
