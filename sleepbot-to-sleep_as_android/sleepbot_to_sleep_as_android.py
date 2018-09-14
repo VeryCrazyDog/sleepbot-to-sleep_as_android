@@ -1,10 +1,10 @@
 # Configuration
-PATH_IN_SLEEPBOT_EXPORT = "E:/Pending/Sleep/SleepBot/Exports/14_01_17_1484325789185.csv"
-PATH_OUT_SLEEP_AS_ANDROID = "E:/Pending/Sleep/SleepBot/Exports/14_01_17_1484325789185_out.csv"
-SLEEPBOT_EXPORT_DATE_FORMAT = "%d/%m/%y"
+PATH_IN_SLEEPBOT_EXPORT = "./sleepbot_for_convert_20180829.csv"
+PATH_OUT_SLEEP_AS_ANDROID = "./sleepbot_for_convert_20180829_out.csv"
+SLEEPBOT_EXPORT_DATE_FORMAT = "%m/%d/%Y"
 SLEEPBOT_EXPORT_TIME_FORMAT = "%H:%M"
-TIMEZONE = "Asia/Hong_Kong"
-NOTE_PREFIX = "[Import from Sleepbot]"
+TIMEZONE = "America/New_York"
+NOTE_SUFFIX = " [Sleepbot Import]"
 
 # Constants
 SLEEPBOT_EXPORT_HEADER = ["Date", "Sleep Time", "Wake Time", "Hours", "Note"]
@@ -62,6 +62,11 @@ def parse_sleepbot_row(row):
     return result
 
 def write_sleep_as_android_row(csv_writer, row):
+    note = row.note.replace(',', ';')
+    note = row.note.replace('"', "'")
+    note = note.strip()
+    # note = row.note
+
     csv_writer.writerow([
         'Id',
         'Tz',
@@ -88,7 +93,7 @@ def write_sleep_as_android_row(csv_writer, row):
         '"' + SLEEP_AS_ANDROID_DATETIME_FORMAT.format(dt = row.wake_time) + '"',
         '"' + '{0:.3f}'.format(row.hours) + '"',
         '"0.0"',
-        '"' + NOTE_PREFIX + row.note + '"',
+        '"' + note + NOTE_SUFFIX + '"',
         '"10000"',
         '"-1"',
         '"-1.0"',
@@ -109,7 +114,8 @@ with open(PATH_IN_SLEEPBOT_EXPORT, 'r') as in_file, open(PATH_OUT_SLEEP_AS_ANDRO
     reader = csv.reader(in_file)
     header = next(reader, [])
     if check_header(header):
-        writer = csv.writer(out_file, quoting = csv.QUOTE_NONE, escapechar = '', quotechar = '')
+        writer = csv.writer(out_file, quoting=csv.QUOTE_NONE,
+                            escapechar=',', quotechar='', lineterminator="\n")
         count = 0
         for row in reader:
             process(writer, row)
