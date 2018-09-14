@@ -8,14 +8,14 @@ This script is written for and tested in the following enviroment:
 * Sleep as Android 20161122 on Android 7.1.1
 
 ## Usage
-
-1. In **Sleepbot**, go to the second tab for statistic, set the **From** date to the earliest record date and press the **SHARE** button at the bottom right of the screen. Take note on the exported file path.
-2. Copy the exported file to a computer with Python 3.5.
-3. Change the configuration in the script `sleepbot_to_sleep_as_android.py`. Refer to the below section for configurable options.
-4. Run the conversion script.
-5. On **Sleep as Android**, open the menu and select **Backup**, then click **Export data** from the pop up menu to backup the existing data. Take note on the exported file path.
-6. Copy the **Sleep as Android** backup to the computer as backup and replace it with the converted file.
-7. On **Sleep as Android**, open the menu and select **Backup**, then click **Import data** from the pop up menu to import the converted file.
+1. Get a stable version of the Python script in [release page](https://github.com/VeryCrazyDog/sleepbot-to-sleep_as_android/releases).
+2. In **Sleepbot**, go to the second tab for statistic, set the **From** date to the earliest record date and press the **SHARE** button at the bottom right of the screen. Take note on the exported file path.
+3. Copy the exported file to a computer with Python 3.5.
+4. Change the configuration in the script `sleepbot_to_sleep_as_android.py`. Refer to the below section for configurable options.
+5. Run the conversion script.
+6. On **Sleep as Android**, open the menu and select **Backup**, then click **Export data** from the pop up menu to backup the existing data. Take note on the exported file path.
+7. Copy the **Sleep as Android** backup to the computer as backup and replace it with the converted file.
+8. On **Sleep as Android**, open the menu and select **Backup**, then click **Import data** from the pop up menu to import the converted file.
 
 ## Configurable Options
 
