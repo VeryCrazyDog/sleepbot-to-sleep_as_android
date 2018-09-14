@@ -26,7 +26,8 @@ There are several configuration set in the script which will need to change in o
 * `SLEEPBOT_EXPORT_DATE_FORMAT`: The date format used in the **Sleepbot** exported file. You will have to change it if the date format in the exported file not `dd/mm/yy`.
 * `SLEEPBOT_EXPORT_TIME_FORMAT`: The time format used in the **Sleepbot** exported file. Most like you don't need to change it.
 * `TIMEZONE`: The timezone of records in the **Sleepbot** exported file. You will have to change it if `Asia/Hong_Kong` is not your timezone. You may refer to https://en.wikipedia.org/wiki/List_of_tz_database_time_zones for the list of timezone available.
-* `NOTE_PREFIX`: A prefix to be added before your note of each sleep records. You will have to change it if you don't like `[Import from Sleepbot]` to be added for each of your record.
+* `NOTE_PREFIX`: A prefix to be added before your note of each sleep records. If you like to have a prefix on the note, you will have to change the value.
+* `NOTE_SUFFIX`: A suffix to be added before your note of each sleep records. If you don't like suffix ` [Sleepbot Import]` to be added to each of your record, you will have to change the value.
 
 ## Sample Files
 
