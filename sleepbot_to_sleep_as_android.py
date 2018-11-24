@@ -64,13 +64,9 @@ def parse_sleepbot_row(row):
         print('WARN: Skipping Sleepbot data with different between sleep time and wake time not matching with sleep hours', row)
     return result
 
-def write_sleep_as_android_row(csv_writer, row):
-    print(row.note)
-    note = row.note
-    #note = row.note.replace(',', ';')
-    #note = row.note.replace('"', "'")
-    print(note)
-    csv_writer.writerow([
+def write_sleep_as_android_row(out_file, row):
+    note = row.note.replace('"', '""')
+    out_file.write(','.join([
         'Id',
         'Tz',
         'From',
@@ -87,8 +83,9 @@ def write_sleep_as_android_row(csv_writer, row):
         'LenAdjust',
         'Geo',
         '"' + datetime.strftime(row.wake_time, SLEEP_AS_ANDROID_TIME_FORMAT) + '"'
-    ])
-    csv_writer.writerow([
+    ]))
+    out_file.write('\n')
+    out_file.write(','.join([
         '"' + str(int(row.sleep_time.timestamp()) * 1000) + '"',
         '"' + TIMEZONE + '"',
         '"' + SLEEP_AS_ANDROID_DATETIME_FORMAT.format(dt = row.sleep_time) + '"',
@@ -105,22 +102,22 @@ def write_sleep_as_android_row(csv_writer, row):
         '"0"',
         '""',
         '"0.0"'
-    ])
+    ]))
+    out_file.write('\n')
 
-def process(csv_writer, row):
+def process(out_file, row):
     row = parse_sleepbot_row(row)
     if row != None:
-        write_sleep_as_android_row(csv_writer, row)
+        write_sleep_as_android_row(out_file, row)
 
 # Main implementation
-with open(PATH_IN_SLEEPBOT_EXPORT, 'r') as in_file, open(PATH_OUT_SLEEP_AS_ANDROID, 'w', newline = '') as out_file:
+with open(PATH_IN_SLEEPBOT_EXPORT, 'r') as in_file, open(PATH_OUT_SLEEP_AS_ANDROID, 'w', newline = '\n') as out_file:
     reader = csv.reader(in_file, quoting = csv.QUOTE_NONE)
     header = next(reader, [])
     if check_header(header):
-        writer = csv.writer(out_file, quoting = csv.QUOTE_NONE, escapechar = '', quotechar = '', lineterminator='\n')
         count = 0
         for row in reader:
-            process(writer, row)
+            process(out_file, row)
             count += 1
             if count % 50 == 0:
                 print('Converted', count, 'records!' if count > 1 else 'record!')
