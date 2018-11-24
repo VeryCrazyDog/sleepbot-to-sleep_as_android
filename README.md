@@ -46,13 +46,13 @@ Sample converted format compatible for import in **Sleep as Android**:
 
 ```csv
 Id,Tz,From,To,Sched,Hours,Rating,Comment,Framerate,Snore,Noise,Cycles,DeepSleep,LenAdjust,Geo,"13:55"
-"1484285100000","Asia/Hong_Kong","13. 01. 2017 13:25","13. 01. 2017 13:55","13. 01. 2017 13:55","0.490","0.0","[Import from Sleepbot]","10000","-1","-1.0","-1","-2.0","0","","0.0"
+"1484285100000","Asia/Hong_Kong","13. 01. 2017 13:25","13. 01. 2017 13:55","13. 01. 2017 13:55","0.490","0.0","[Sleepbot Import]","10000","-1","-1.0","-1","-2.0","0","","0.0"
 Id,Tz,From,To,Sched,Hours,Rating,Comment,Framerate,Snore,Noise,Cycles,DeepSleep,LenAdjust,Geo,"07:56"
-"1484239800000","Asia/Hong_Kong","13. 01. 2017 0:50","13. 01. 2017 7:56","13. 01. 2017 7:56","7.100","0.0","[Import from Sleepbot]","10000","-1","-1.0","-1","-2.0","0","","0.0"
+"1484239800000","Asia/Hong_Kong","13. 01. 2017 0:50","13. 01. 2017 7:56","13. 01. 2017 7:56","7.100","0.0","[Sleepbot Import]","10000","-1","-1.0","-1","-2.0","0","","0.0"
 Id,Tz,From,To,Sched,Hours,Rating,Comment,Framerate,Snore,Noise,Cycles,DeepSleep,LenAdjust,Geo,"07:48"
-"1484151420000","Asia/Hong_Kong","12. 01. 2017 0:17","12. 01. 2017 7:48","12. 01. 2017 7:48","7.510","0.0","[Import from Sleepbot]","10000","-1","-1.0","-1","-2.0","0","","0.0"
+"1484151420000","Asia/Hong_Kong","12. 01. 2017 0:17","12. 01. 2017 7:48","12. 01. 2017 7:48","7.510","0.0","[Sleepbot Import]","10000","-1","-1.0","-1","-2.0","0","","0.0"
 Id,Tz,From,To,Sched,Hours,Rating,Comment,Framerate,Snore,Noise,Cycles,DeepSleep,LenAdjust,Geo,"13:54"
-"1483938780000","Asia/Hong_Kong","09. 01. 2017 13:13","09. 01. 2017 13:54","09. 01. 2017 13:54","0.690","0.0","[Import from Sleepbot]","10000","-1","-1.0","-1","-2.0","0","","0.0"
+"1483938780000","Asia/Hong_Kong","09. 01. 2017 13:13","09. 01. 2017 13:54","09. 01. 2017 13:54","0.690","0.0","[Sleepbot Import]","10000","-1","-1.0","-1","-2.0","0","","0.0"
 Id,Tz,From,To,Sched,Hours,Rating,Comment,Framerate,Snore,Noise,Cycles,DeepSleep,LenAdjust,Geo,"07:56"
-"1483891140000","Asia/Hong_Kong","08. 01. 2017 23:59","09. 01. 2017 7:56","09. 01. 2017 7:56","7.950","0.0","[Import from Sleepbot]","10000","-1","-1.0","-1","-2.0","0","","0.0"
+"1483891140000","Asia/Hong_Kong","08. 01. 2017 23:59","09. 01. 2017 7:56","09. 01. 2017 7:56","7.950","0.0","[Sleepbot Import]","10000","-1","-1.0","-1","-2.0","0","","0.0"
 ```
