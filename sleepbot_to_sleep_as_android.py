@@ -39,32 +39,37 @@ def check_header(row):
 
 def parse_sleepbot_row(row):
     result = None
-    if len(row) == 5:
-        # Trim all space characters
-        map(str.strip, row)
-        # Parse the sleep time, wake time and sleep hours
-        sleep_time = datetime.strptime(row[0] + ' ' + row[1], SLEEPBOT_EXPORT_DATE_FORMAT + ' ' + SLEEPBOT_EXPORT_TIME_FORMAT)
-        wake_time = datetime.strptime(row[0] + ' ' + row[2], SLEEPBOT_EXPORT_DATE_FORMAT + ' ' + SLEEPBOT_EXPORT_TIME_FORMAT)
-        sleep_hours = decimal.Decimal(row[3])
-        # Check whether the sleep time advanced some days, in Sleepbot, the date is the date of the wake time
-        if wake_time < sleep_time:
-            # Check the sleep hours, just in case someone sleep over 24 hours which will across 2 days
-            day_adj = math.ceil(sleep_hours / 24)
-            # Adjust the sleep time
-            sleep_time -= timedelta(days = day_adj)
-        # Check the sleep hours is consistent with sleep time and wake time
-        if math.fabs((wake_time - sleep_time).total_seconds() / 3600 - float(sleep_hours)) <= SLEEPBOT_TIME_DIFF_THRESHOLD:
-            # Build the result
-            result = SleepbotExportRow(sleep_time, wake_time, sleep_hours, row[4])
-        else:
-            print('WARN: Skipping Sleepbot data with different between sleep time and wake time not matching with sleep hours', row)
+    # Note exported from SleepBot is not properly escaped, restore the tokens as one single note
+    if len(row) > 5:
+        note = ','.join(row[4:])
+        row = row[0:5]
+        row[4] = note
+    # Trim all space characters
+    map(str.strip, row)
+    # Parse the sleep time, wake time and sleep hours
+    sleep_time = datetime.strptime(row[0] + ' ' + row[1], SLEEPBOT_EXPORT_DATE_FORMAT + ' ' + SLEEPBOT_EXPORT_TIME_FORMAT)
+    wake_time = datetime.strptime(row[0] + ' ' + row[2], SLEEPBOT_EXPORT_DATE_FORMAT + ' ' + SLEEPBOT_EXPORT_TIME_FORMAT)
+    sleep_hours = decimal.Decimal(row[3])
+    # Check whether the sleep time advanced some days, in Sleepbot, the date is the date of the wake time
+    if wake_time < sleep_time:
+        # Check the sleep hours, just in case someone sleep over 24 hours which will across 2 days
+        day_adj = math.ceil(sleep_hours / 24)
+        # Adjust the sleep time
+        sleep_time -= timedelta(days = day_adj)
+    # Check the sleep hours is consistent with sleep time and wake time
+    if math.fabs((wake_time - sleep_time).total_seconds() / 3600 - float(sleep_hours)) <= SLEEPBOT_TIME_DIFF_THRESHOLD:
+        # Build the result
+        result = SleepbotExportRow(sleep_time, wake_time, sleep_hours, row[4])
     else:
-        print('WARN: Skipping invalid Sleepbot data', row)
+        print('WARN: Skipping Sleepbot data with different between sleep time and wake time not matching with sleep hours', row)
     return result
 
 def write_sleep_as_android_row(csv_writer, row):
-    note = row.note.replace(',', ';')
-    note = row.note.replace('"', "'")
+    print(row.note)
+    note = row.note
+    #note = row.note.replace(',', ';')
+    #note = row.note.replace('"', "'")
+    print(note)
     csv_writer.writerow([
         'Id',
         'Tz',
@@ -109,10 +114,10 @@ def process(csv_writer, row):
 
 # Main implementation
 with open(PATH_IN_SLEEPBOT_EXPORT, 'r') as in_file, open(PATH_OUT_SLEEP_AS_ANDROID, 'w', newline = '') as out_file:
-    reader = csv.reader(in_file)
+    reader = csv.reader(in_file, quoting = csv.QUOTE_NONE)
     header = next(reader, [])
     if check_header(header):
-        writer = csv.writer(out_file, quoting = csv.QUOTE_NONE, escapechar = ',', quotechar = '', lineterminator="\n")
+        writer = csv.writer(out_file, quoting = csv.QUOTE_NONE, escapechar = '', quotechar = '', lineterminator='\n')
         count = 0
         for row in reader:
             process(writer, row)
